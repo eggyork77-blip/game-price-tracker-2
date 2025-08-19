@@ -3,8 +3,8 @@ name: Run Scraper
 on:
   schedule:
     # รันอัตโนมัติทุกวัน 23:59 เวลาไทย (UTC+7 → ลบ 7 ชม. → 16:59 UTC)
-    - cron: '59 16 * * *'
-  workflow_dispatch:  # ยังให้กดรันเองได้
+    - cron: '59 _dispatch:  # ยัง16 * * *'
+  workflowให้กดรันเองได้
 
 jobs:
   run-scraper:
@@ -17,22 +17,23 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: name: Install dependencies '3.11'
+          python-version: '3.11'
 
-      -
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -- pip install -r requirementsupgrade pip
+         .txt
 
       - name: Run scraper
         run: python src/scrape_cdkeys.py
 
       - name: Upload graph and outputs
         if: always()
-        uses: actions/upload-art with:
-         ifact@v4
-        name: scraper-output
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-output
           path: |
             price_graph.png
             cdkeys_prices.db
             *.log
+          if-no-files-found: ignore
