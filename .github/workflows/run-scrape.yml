@@ -2,9 +2,9 @@ name: Run Scraper
 
 on:
   schedule:
-    # รันอัตโนมัติทุกวัน 23:59 เวลาไทย (UTC+7 → ลบ 7 ชม. → 16:59 UTC)
-    - cron: '59 _dispatch:  # ยัง16 * * *'
-  workflowให้กดรันเองได้
+    # รันอัตโนมัติทุกวัน 23:59 เวลาไทย (16:59 UTC)
+    - cron: '59 16 * * *'
+  workflow_dispatch:
 
 jobs:
   run-scraper:
@@ -21,8 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install -- pip install -r requirementsupgrade pip
-         .txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run scraper
         run: python src/scrape_cdkeys.py
